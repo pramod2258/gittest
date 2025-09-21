@@ -22,15 +22,13 @@ jobs:
 
     - name: Check if dict has values
       run: |
-        python <<EOF
-try:
-    import data
-    if not data.my_dict:
-        print('❌ Dictionary is empty. Failing workflow.')
-        exit(1)
-    else:
-        print('✅ Dictionary has values. Workflow continues.')
-except ModuleNotFoundError:
-    print('❌ Module "data" not found. Ensure data.py exists in the repository.')
-    exit(1)
-EOF
+        python -c "try:
+        import data
+        if not data.my_dict:
+            print('❌ Dictionary is empty. Failing workflow.')
+            exit(1)
+        else:
+            print('✅ Dictionary has values. Workflow continues.')
+        except ModuleNotFoundError:
+            print('❌ Module \"data\" not found. Ensure data.py exists in the repository.')
+            exit(1)"
