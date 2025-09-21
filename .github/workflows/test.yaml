@@ -1,8 +1,16 @@
 name: Check Python Dict
 
 on:
-  push:
   workflow_dispatch:
+    inputs:
+      dict_key:
+        description: "Key to check in the dictionary"
+        required: true
+        default: "key1"
+      dict_value:
+        description: "Value to set for the key"
+        required: false
+        default: "100"
 
 jobs:
   check-dict:
@@ -20,16 +28,21 @@ jobs:
     - name: Debug Repository
       run: ls -R
 
-    - name: Check if dict has values
+    - name: Check and Set Dict Values
       run: |
         python -c "
         try:
             import test1 as data
-            if not data.my_dict:
-                print('❌ Dictionary is empty. Failing workflow.')
-                exit(1)
+            key = '${{ github.event.inputs.dict_key }}'
+            value = int('${{ github.event.inputs.dict_value }}')
+
+            if key in data.my_dict:
+                print(f'✅ Key \"{key}\" exists with value: {data.my_dict[key]}')
             else:
-                print('✅ Dictionary has values. Workflow continues.')
+                print(f'❌ Key \"{key}\" does not exist. Adding it with value: {value}')
+                data.my_dict[key] = value
+
+            print(f'Updated Dictionary: {data.my_dict}')
         except ModuleNotFoundError:
             print('❌ Module \"data\" not found. Ensure test1.py exists in the repository.')
             exit(1)"
