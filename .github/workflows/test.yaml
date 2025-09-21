@@ -1,6 +1,9 @@
 name: Check Python Dict
 
 on:
+  push:
+    branches:
+      - dev  # Automatically trigger on push to dev branch
   workflow_dispatch:
     inputs:
       dict_key:
