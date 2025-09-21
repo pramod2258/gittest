@@ -24,12 +24,12 @@ jobs:
       run: |
         python -c "
         try:
-            import data
+            import test1 as data
             if not data.my_dict:
                 print('❌ Dictionary is empty. Failing workflow.')
                 exit(1)
             else:
                 print('✅ Dictionary has values. Workflow continues.')
         except ModuleNotFoundError:
-            print('❌ Module \"data\" not found. Ensure data.py exists in the repository.')
+            print('❌ Module \"data\" not found. Ensure test1.py exists in the repository.')
             exit(1)"
