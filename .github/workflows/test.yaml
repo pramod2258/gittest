@@ -1,6 +1,8 @@
 name: Check Python Dict
 
-on: [push]
+on:
+  push:
+  workflow_dispatch:
 
 jobs:
   check-dict:
