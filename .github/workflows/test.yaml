@@ -19,11 +19,11 @@ jobs:
 
     - name: Check if dict has values
       run: |
-        python -c "
+        python <<EOF
 import data
 if not data.my_dict:
     print('❌ Dictionary is empty. Failing workflow.')
     exit(1)
 else:
     print('✅ Dictionary has values. Workflow continues.')
-"
+EOF
